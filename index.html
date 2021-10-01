@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./theme.css">
+    <title>Vue</title>
+</head>
+<body>
+    
+<div class="container " id="app">
+    <div class="card ">
+        <h1 :style="{
+        color: inputValue.length <5 ? 'darkred' : 'darkblue',
+        fontSize: inputValue.length < 6 ? '2rem' : '1,5rem'
+        }">{{ title }}</h1>
+           <div class="form-control">
+            <input type="text"
+             :placeholder= "placeholderString"
+            :value="inputValue"
+             v-model="inputValue"
+            @keypress.enter="addNewNote"
+             />   
+           </div>
+           <button class="btn" v-on:click="addNewNote">Добавить</button>
+           <hr />
+           <ul class="list" v-if="notes.length !== 0">
+            <li class="list-item" v-for="(note,idx) in notes">
+              <span :class="{
+              'primary': true,
+              'bold': note.length > 5
+              }">({{ idx + 1 }}) {{ toUpperCase(note) }}</span>
+               <button class="btn danger" v-on:click="removNote(idx)">удалить</button>
+            </li>
+               <hr />
+               <li>
+                   <srtong>Общее количесвто: {{notes.length}}</srtong>
+               </li>
+           </ul>
+        <div v-if="notes.length === 0">Заметок пока нет. Довавьте первую </div>
+        </div>
+</div>
+
+<script src="./vue.global.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
